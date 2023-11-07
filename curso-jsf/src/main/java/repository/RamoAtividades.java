@@ -13,26 +13,28 @@ import model.RamoAtividade;
 
 public class RamoAtividades implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-
+private static final long serialVersionUID = 1L;
+	
 	private EntityManager manager;
-	
+
 	public RamoAtividades() {
-		
+
 	}
-	
+
 	public RamoAtividades(EntityManager manager) {
-		this.manager=manager;
+		this.manager = manager;
 	}
 	
-	public List<RamoAtividade> pesquisar(String descricao){
+	public List<RamoAtividade> pesquisar(String descricao) {
 		CriteriaBuilder criteriaBuilder = manager.getCriteriaBuilder();
-		CriteriaQuery<RamoAtividade> criteriaQuery = criteriaBuilder.createQuery(RamoAtividade.class);
-		Root<RamoAtividade> root = criteriaQuery.from(RamoAtividade.class);
-		criteriaQuery.select(root);
-		criteriaQuery.where(criteriaBuilder.like(root.get("descricai"), descricao + "%"));
+		
+		CriteriaQuery<RamoAtividade> criteriaQuery = criteriaBuilder.createQuery(RamoAtividade.class);		
+		Root<RamoAtividade> root = criteriaQuery.from(RamoAtividade.class);			
+		criteriaQuery.select(root);				
+		criteriaQuery.where(criteriaBuilder.like(root.get("descricao"), descricao + "%"));		
+		
 		TypedQuery<RamoAtividade> query = manager.createQuery(criteriaQuery);
 		
-		return null;
+		return query.getResultList();
 	}
 }

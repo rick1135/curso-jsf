@@ -19,16 +19,13 @@ public class CamadaPersistencia {
 		
 		em.getTransaction().begin();
 		
-		//Declarando os repositórios
 		RamoAtividades ramoAtividades = new RamoAtividades(em);
 		Empresas empresas = new Empresas(em);
 		
-		//Buscando as informações do banco
 		List<RamoAtividade> listaDeRamoAtividades = ramoAtividades.pesquisar("");
 		List<Empresa> listaDeEmpresas = empresas.pesquisar("");
 		System.out.println(listaDeEmpresas);
 		
-		//Criando uma empresa
 		Empresa empresa = new Empresa();		
 		empresa.setNomeFantasia("João da Silva");
 		empresa.setCnpj("41.952.519/0001-57");
@@ -37,16 +34,13 @@ public class CamadaPersistencia {
 		empresa.setDataFundacao(new Date());
 		empresa.setRamoAtividade(listaDeRamoAtividades.get(0));
 		
-		//Salvando a empresa
 		empresas.guardar(empresa);
 		
 		em.getTransaction().commit();
 		
-		//Verificando se a inserção funcionou
 		List<Empresa> listaDeEmpresas2 = empresas.pesquisar("");
 		System.out.println(listaDeEmpresas2);
 		
-		//Fechando conexao com bd
 		em.close();
 		emf.close();
 	}
