@@ -1,12 +1,14 @@
 package controller;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import model.Empresa;
-import model.TipoEmpresa;
+import repository.Empresas;
 
 @Named
 @ViewScoped
@@ -14,24 +16,17 @@ public class GestaoEmpresasBean implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
-	private Empresa empresa = new Empresa();
+	@Inject
+	private Empresas empresas;
 	
-	public void salvar() {
-		System.out.println("Razao social: " + empresa.getRazaoSocial() + 
-	" - Nome fanasia: " + empresa.getNomeFantasia() + 
-	" - Tipo: " + empresa.getTipo());
+	private List<Empresa> listaEmpresas;
+	
+	public void todasEmpresas() {
+		listaEmpresas = empresas.todas();
 	}
 	
-	public String ajuda() {
-		return "AjudaGestaoEmpresas?faces-redirect=true";
-	}
-	
-	public Empresa getEmpresa() {
-		return empresa;
-	}
-	
-	public TipoEmpresa[] getTiposEmpresa() {
-		return TipoEmpresa.values();
+	public List<Empresa> getListaEmpresas() {
+		return listaEmpresas;
 	}
 	
 }
